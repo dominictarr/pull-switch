@@ -1,0 +1,20 @@
+{
+  "name": "pull-switch",
+  "description": "split a pull-stream into many streams",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dominictarr/pull-switch",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/pull-switch.git"
+  },
+  "dependencies": {
+    "pull-pushable": "~1.1.0",
+    "pull-stream": "~2.18.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "license": "MIT"
+}
