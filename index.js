@@ -13,7 +13,7 @@ module.exports = function (select, createStream) {
         delete streams[key]
         if(--n) return
       })
-      streams[key].pipe(createStream(key))
+      streams[key].pipe(createStream(item))
     }
     streams[key].push(item)
   }, function (err) {
