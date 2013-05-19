@@ -8,9 +8,10 @@ var switch = require('pull-switch')
 
 pull.count(100)
   .pipe(switch(function select (e) {
+    // return key for which stream this is directed to.
     return e % 2 ? 'even' : 'odd'
-    //return key for which stream this is directed to.
   }, function createStream(key) {
+    //return a stream that will be piped to...
     return pull.drain(function (d) {
       console.log(key+'>', d)
     })
