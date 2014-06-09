@@ -1,7 +1,7 @@
 {
   "name": "pull-switch",
   "description": "split a pull-stream into many streams",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "homepage": "https://github.com/dominictarr/pull-switch",
   "repository": {
     "type": "git",
