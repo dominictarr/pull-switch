@@ -1,4 +1,4 @@
-
+'use strict';
 var pull = require('pull-stream')
 var pushable = require('pull-pushable')
 
@@ -10,7 +10,7 @@ module.exports = function (select, createStream) {
     if(!streams[key]) {
       streams[key] = pushable(function (err) {
         delete streams[key]
-        if(--n) return
+        --n
       })
       pull(streams[key], createStream(key))
     }
@@ -21,12 +21,12 @@ module.exports = function (select, createStream) {
     }
   })
 
-  sink.add = function (key, streams) {
+  sink.add = function (key, subsink) {
     streams[key] = pushable(function (err) {
       delete streams[key]
-      if(--n) return
+      --n
     })
-    pull(streams[key], sink)
+    pull(streams[key], subsink)
   }
 
   return sink
