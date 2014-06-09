@@ -5,15 +5,14 @@ var pushable = require('pull-pushable')
 module.exports = function (select, createStream) {
   var streams = {}, n = 0
 
-  return pull.drain(function (item) {
+  var sink = pull.drain(function (item) {
     var key = select(item)
-
     if(!streams[key]) {
       streams[key] = pushable(function (err) {
         delete streams[key]
         if(--n) return
       })
-      streams[key].pipe(createStream(item))
+      pull(streams[key], createStream(key))
     }
     streams[key].push(item)
   }, function (err) {
@@ -21,4 +20,14 @@ module.exports = function (select, createStream) {
       streams[key].end(err)
     }
   })
+
+  sink.add = function (key, streams) {
+    streams[key] = pushable(function (err) {
+      delete streams[key]
+      if(--n) return
+    })
+    pull(streams[key], sink)
+  }
+
+  return sink
 }
